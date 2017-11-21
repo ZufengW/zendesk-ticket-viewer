@@ -1,0 +1,16 @@
+{
+  "name": "zendesk-ticket-viewer",
+  "version": "0.1.0",
+  "description": "displays basic Zendesk ticket information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Zendesk",
+    "ticket",
+    "API"
+  ],
+  "author": "Zufeng Wang",
+  "license": "ISC"
+}
