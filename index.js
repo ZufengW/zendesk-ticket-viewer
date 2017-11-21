@@ -16,8 +16,11 @@ function displayTicketInfoWithID(id) {
     console.log(H_RULE);
     displayTicketInfo(result);
     console.log(H_RULE);
+  }, function(reason) {
+    displayRejectionReason(reason);
   });
 }
+
 
 /** displays all the tickets of zendesk */
 function displayAllTickets() {
@@ -28,7 +31,18 @@ function displayAllTickets() {
       console.log('');
     }
     console.log(H_RULE);
+  }, function(reason) {
+    displayRejectionReason(reason);
   });
+}
+
+
+/** display something if request rejected */
+function displayRejectionReason(reason) {
+  console.log("Rejected due to", reason.message);
+  if (reason.message.startsWith("Invalid URI")) {
+    console.log("Might need to change url");
+  }
 }
 
 
