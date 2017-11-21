@@ -6,8 +6,20 @@ const H_RULE = '---------------------------------------------------------';
 
 
 displayAllTickets();
+displayTicketInfoWithID(1);
+displayTicketInfoWithID(2);
 
-/** displays all the tickets of zendesk **/
+
+/** displays a single ticket by id */
+function displayTicketInfoWithID(id) {
+  zendesk.tickets.show(id).then(function(result){
+    console.log(H_RULE);
+    displayTicketInfo(result);
+    console.log(H_RULE);
+  });
+}
+
+/** displays all the tickets of zendesk */
 function displayAllTickets() {
   zendesk.tickets.list().then(function(result) {
     console.log(H_RULE);
@@ -20,7 +32,7 @@ function displayAllTickets() {
 }
 
 
-/** given a JSON object for a single ticket, display info **/
+/** given a JSON object for a single ticket, display info */
 function displayTicketInfo(ticket) {
   if (!ticket) {
     console.warn('Ticket not found');
