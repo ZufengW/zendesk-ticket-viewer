@@ -12,5 +12,8 @@
     "API"
   ],
   "author": "Zufeng Wang",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "zendesk-node-api": "^1.3.0"
+  }
 }
