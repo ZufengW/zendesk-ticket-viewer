@@ -7,6 +7,7 @@ const H_RULE = '---------------------------------------------------------';
 
 var rl = readline.createInterface(process.stdin, process.stdout);
 
+displayIntro();
 rl.setPrompt('> ');
 rl.prompt();
 
@@ -41,6 +42,18 @@ rl.on('line', function(line) {
   console.log('Complete.');
   process.exit(0);
 });
+
+
+// ======= Functions for the interactive command line application =======
+/** displays instructions */
+function displayIntro() {
+  console.log(H_RULE);
+  console.log("Welcome to the Zendesk Ticket Viewer\n");
+  console.log("Please enter one of the following options:");
+  console.log("    1.  Display a single ticket");
+  console.log("    2.  Display all tickets");
+  console.log(H_RULE);
+}
 
 
 /** displays a single ticket by id */
