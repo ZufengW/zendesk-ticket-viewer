@@ -8,37 +8,38 @@ const H_RULE = '---------------------------------------------------------';
 var rl = readline.createInterface(process.stdin, process.stdout);
 
 displayIntro();
-rl.setPrompt('> ');
-rl.prompt();
+prompt();
 
-// listen for user input
-rl.on('line', function(line) {
-  var input = line.trim().split(/\s+/);
-  switch(input[0]) {
-    case '1':
-      // display a single ticket
-      if (input.length < 2) {
-        console.log("Usage is > 1 id");
-        rl.prompt();
-      } else {
-        rl.pause();
-        console.log(`Searching for ticket with id ${input[1]}...`);
-        displayTicketInfoWithID(input[1]);
-      }
-      break;
-    case '2':
-      // display all tickets
-      rl.pause();
-      console.log(`Displaying all tickets...`);
-      displayAllTickets();
-      break;
-    default:
-      // user input didn't match anything
-      console.log("1 or 2");
-      rl.prompt();
-      break;
-  }
-}).on('close', function() {
+/** get the user's next command */
+function prompt() {
+  rl.question('> ', function(line) {
+    var input = line.trim().split(/\s+/);
+    switch(input[0]) {
+      case '1':
+        // display a single ticket
+        if (input.length < 2) {
+          console.log("Usage is > 1 id");
+          prompt();
+        } else {
+          console.log(`Searching for ticket with id ${input[1]}...`);
+          displayTicketInfoWithID(input[1]);
+        }
+        break;
+      case '2':
+        // display all tickets
+        console.log(`Displaying all tickets...`);
+        displayAllTickets();
+        break;
+      default:
+        // user input didn't match anything
+        console.log("1 or 2");
+        prompt();
+        break;
+    }
+  });
+}
+
+rl.on('close', function() {
   console.log('Complete.');
   process.exit(0);
 });
@@ -62,10 +63,10 @@ function displayTicketInfoWithID(id) {
     console.log(H_RULE);
     displayTicketInfo(result);
     console.log(H_RULE);
-    rl.prompt();
+    prompt();
   }, function(reason) {
     displayRejectionReason(reason);
-    rl.prompt();
+    prompt();
   });
 }
 
@@ -83,10 +84,10 @@ function displayAllTickets() {
       console.log('No tickets found');
     }
     console.log(H_RULE);
-    rl.prompt();
+    prompt();
   }, function(reason) {
     displayRejectionReason(reason);
-    rl.prompt();
+    prompt();
   });
 }
 
