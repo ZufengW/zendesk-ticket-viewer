@@ -30,7 +30,8 @@ function prompt() {
         break;
       case '3':
         // Edit the config file
-        console.log(`Editing the config file`);
+        console.log(`Editing the config file. `
+            + `Leave field blank to not change.`);
         editConfig.writeConfig().then((config) => {
           // create a new Zendesk instance with the updated details
           zendesk = new Zendesk(config);
