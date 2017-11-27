@@ -1,8 +1,8 @@
 var Zendesk = require('zendesk-node-api');
-var config = require('./config.json');
 
 const editConfig = require('./src/edit-config');
 const userInput = require('./src/user-input');
+const config = editConfig.readConfig();
 var zendesk = new Zendesk(config);
 const H_RULE = '---------------------------------------------------------';
 
