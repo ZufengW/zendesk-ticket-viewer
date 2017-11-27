@@ -1,19 +1,16 @@
 var Zendesk = require('zendesk-node-api');
 var config = require('./config.json');
-const readline = require('readline');
 
+const userInput = require('./src/user-input');
 var zendesk = new Zendesk(config);
 const H_RULE = '---------------------------------------------------------';
-
-var rl = readline.createInterface(process.stdin, process.stdout);
 
 displayIntro();
 prompt();
 
-/** get the user's next command */
+/** get user input and do something about it */
 function prompt() {
-  rl.question('> ', function(line) {
-    var input = line.trim().split(/\s+/);
+  userInput.getCommand().then((input) => {
     switch(input[0]) {
       case '1':
         // display a single ticket
@@ -38,12 +35,6 @@ function prompt() {
     }
   });
 }
-
-rl.on('close', function() {
-  console.log('Complete.');
-  process.exit(0);
-});
-
 
 // ======= Functions for the interactive command line application =======
 /** displays instructions */
