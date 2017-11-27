@@ -3,23 +3,24 @@ An interactive command line application that connects to the [Zendesk](https://w
 
 ## Installation instructions
 1. Clone this repository.
-2. Run `npm install`.
-3. Create a file `config.json` in the top-level directory. (Same directory as this readme) Fill it with the following:
-```
-{
-  "url": "your Zendesk url",
-  "email": "your email",
-  "token": "your API token"
-}
-```
-replacing each "your..." with your relevant value (inside quotes).
+2. cd into the root directory of this repo.
+3. Run `npm install`. (You need [Node.js](https://nodejs.org/), which includes npm, to do this and to run the app)
+
     
 ## Usage
-Run with `node index.js`.
+Run with `node index.js` or with `npm start`.
 
-Input 1 followed by ticket id to display information about one ticket.
+Input **1** followed by ticket id to display information about one ticket.
 
-Input 2 to display information about all tickets.
+Input **2** to display information about all tickets.
+
+Input **3** to edit your API details.
+```
+    url: <your Zendesk url>
+  email: <your email>
+  token: <your API token>
+```
+These values are saved in a file, so you don't need to reenter them every time you run the app.
 
 Stop the app by ending input (e.g. with `^C`).
 
