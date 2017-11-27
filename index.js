@@ -1,19 +1,17 @@
 var Zendesk = require('zendesk-node-api');
-var config = require('./config.json');
-const readline = require('readline');
 
+const editConfig = require('./src/edit-config');
+const userInput = require('./src/user-input');
+const config = editConfig.readConfig();
 var zendesk = new Zendesk(config);
 const H_RULE = '---------------------------------------------------------';
-
-var rl = readline.createInterface(process.stdin, process.stdout);
 
 displayIntro();
 prompt();
 
-/** get the user's next command */
+/** get user input and do something about it */
 function prompt() {
-  rl.question('> ', function(line) {
-    var input = line.trim().split(/\s+/);
+  userInput.getCommand().then((input) => {
     switch(input[0]) {
       case '1':
         // display a single ticket
@@ -30,6 +28,16 @@ function prompt() {
         console.log(`Displaying all tickets...`);
         displayAllTickets();
         break;
+      case '3':
+        // Edit the config file
+        console.log(`Editing the config file. `
+            + `Leave field blank to not change.`);
+        editConfig.writeConfig().then((config) => {
+          // create a new Zendesk instance with the updated details
+          zendesk = new Zendesk(config);
+          prompt();
+        });
+        break;
       default:
         // user input didn't match anything
         console.log("1 or 2");
@@ -39,12 +47,6 @@ function prompt() {
   });
 }
 
-rl.on('close', function() {
-  console.log('Complete.');
-  process.exit(0);
-});
-
-
 // ======= Functions for the interactive command line application =======
 /** displays instructions */
 function displayIntro() {
@@ -53,6 +55,7 @@ function displayIntro() {
   console.log("Please enter one of the following options:");
   console.log("    1.  Display a single ticket");
   console.log("    2.  Display all tickets");
+  console.log("    3.  Edit the config");
   console.log(H_RULE);
 }
 
