@@ -47,5 +47,4 @@ var writeConfig = (object) => {
 module.exports = {
   readConfig,
   writeConfig,
-  getConfigDetails
 };
