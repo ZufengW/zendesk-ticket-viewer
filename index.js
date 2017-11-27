@@ -1,6 +1,7 @@
 var Zendesk = require('zendesk-node-api');
 var config = require('./config.json');
 
+const editConfig = require('./src/edit-config');
 const userInput = require('./src/user-input');
 var zendesk = new Zendesk(config);
 const H_RULE = '---------------------------------------------------------';
@@ -27,6 +28,15 @@ function prompt() {
         console.log(`Displaying all tickets...`);
         displayAllTickets();
         break;
+      case '3':
+        // Edit the config file
+        console.log(`Editing the config file`);
+        editConfig.writeConfig().then((config) => {
+          // create a new Zendesk instance with the updated details
+          zendesk = new Zendesk(config);
+          prompt();
+        });
+        break;
       default:
         // user input didn't match anything
         console.log("1 or 2");
@@ -44,6 +54,7 @@ function displayIntro() {
   console.log("Please enter one of the following options:");
   console.log("    1.  Display a single ticket");
   console.log("    2.  Display all tickets");
+  console.log("    3.  Edit the config");
   console.log(H_RULE);
 }
 

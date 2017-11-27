@@ -1,0 +1,51 @@
+const fs = require('fs');
+
+const userInput = require('./user-input');
+const FILE_NAME = 'config.json';
+
+/** Reads the config file. Returns an object */
+var readConfig = () => {
+  try {
+    var contents = fs.readFileSync(FILE_NAME);
+    return JSON.parse(contents);
+  } catch (e) {
+    // file probably doesn't exist
+    return {};
+  }
+};
+
+/** asks the user for config details: url, email, token */
+var getConfigDetails = () => {
+  var details = {};
+  return new Promise((resolve, reject) => {
+    userInput.getUserInput('  url: ').then((result) => {
+      details.url = result;
+      return userInput.getUserInput('email: ');
+    }).then((result) => {
+      details.email = result;
+      return userInput.getUserInput('token: ');
+    }).then((result) => {
+      details.token = result;
+      resolve(details);
+    });
+  });
+}
+
+/** asks the user for config details, then writes to file.
+ * Returns the object that was written
+ */
+var writeConfig = (object) => {
+  return new Promise((resolve, reject) => {
+    getConfigDetails().then((object) => {
+      fs.writeFileSync(FILE_NAME, JSON.stringify(object));
+      resolve(object);
+    });
+  });
+};
+
+
+module.exports = {
+  readConfig,
+  writeConfig,
+  getConfigDetails
+};
