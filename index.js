@@ -38,9 +38,13 @@ function prompt() {
           prompt();
         });
         break;
+      case 'help':
+        displayIntro();
+        prompt();
+        break;
       default:
         // user input didn't match anything
-        console.log("1 or 2");
+        // console.log("1, 2 or 3");
         prompt();
         break;
     }
@@ -53,9 +57,10 @@ function displayIntro() {
   console.log(H_RULE);
   console.log("Welcome to the Zendesk Ticket Viewer\n");
   console.log("Please enter one of the following options:");
-  console.log("    1.  Display a single ticket");
-  console.log("    2.  Display all tickets");
-  console.log("    3.  Edit the config");
+  console.log("    1     Display a single ticket");
+  console.log("    2     Display all tickets");
+  console.log("    3     Edit the config");
+  console.log("    help  Display this message");
   console.log(H_RULE);
 }
 
