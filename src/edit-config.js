@@ -29,7 +29,7 @@ var getConfigDetails = () => {
       resolve(details);
     });
   });
-}
+};
 
 /** asks the user for config details, then writes to file.
  * Returns the object that was written

@@ -19,6 +19,7 @@
     "url": "git+https://github.com/zufengw/zendesk-ticket-viewer"
   },
   "dependencies": {
+    "moment": "^2.19.2",
     "zendesk-node-api": "^1.3.0"
   }
 }
